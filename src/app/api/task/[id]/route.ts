@@ -25,13 +25,33 @@ export const PATCH = async (req: Request) => {
   }
 };
 
-// ブログの詳細記事取得API
+// タスク詳細取得API
 export const GET = async (req: Request) => {
   try {
     const id: number = parseInt(req.url.split("/task/")[1]);
     await main();
-    const post = await prisma.task.findFirst({ where: { id } });
-    return NextResponse.json({ message: "Success", post }, { status: 200 });
+    const task = await prisma.task.findFirst({ where: { id } });
+    return NextResponse.json({ message: "Success", task }, { status: 200 });
+  } catch (err) {
+    return NextResponse.json({ message: "Error", err }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+// タスク編集API
+export const PUT = async (req: Request) => {
+  try {
+    const id: number = parseInt(req.url.split("/task/")[1]);
+
+    const { title, createdAt } = await req.json();
+
+    await main();
+    const task = await prisma.task.update({
+      data: { title, createdAt },
+      where: { id },
+    });
+    return NextResponse.json({ message: "Success", task }, { status: 200 });
   } catch (err) {
     return NextResponse.json({ message: "Error", err }, { status: 500 });
   } finally {
