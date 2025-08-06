@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
 
 const createTask = async (
   title: string | undefined,
@@ -28,14 +29,15 @@ const CreateTask = () => {
     const createdAtValue = dateRef.current?.value
       ? new Date(dateRef.current.value)
       : undefined;
+    toast.loading("作成中です");
     await createTask(titleRef.current?.value, createdAtValue);
-
     router.push("/");
     router.refresh();
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="mx-auto mt-10 max-w-xl min-h-screen ">
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>

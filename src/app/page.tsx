@@ -52,7 +52,7 @@ export default function Home() {
               href={"/task/add"}
               className=" md:w-1/6 sm:w-2/4 text-center rounded-md p-2 m-auto bg-slate-300 font-semibold"
             >
-              ブログ新規作成
+              タスク新規作成
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
@@ -64,12 +64,12 @@ export default function Home() {
                 <div className="flex flex-1 flex-col p-4 sm:p-6">
                   <div className="flex items-center justify-between">
                     <h2 className="mb-2 text-lg font-semibold text-gray-800">
-                      <a
-                        href="#"
+                      <Link
+                        href={`/task/edit/${task.id}`}
                         className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                       >
                         {task.title}
-                      </a>
+                      </Link>
                     </h2>
                     <div>
                       <button

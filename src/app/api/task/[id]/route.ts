@@ -24,3 +24,17 @@ export const PATCH = async (req: Request) => {
     await prisma.$disconnect();
   }
 };
+
+// ブログの詳細記事取得API
+export const GET = async (req: Request) => {
+  try {
+    const id: number = parseInt(req.url.split("/task/")[1]);
+    await main();
+    const post = await prisma.task.findFirst({ where: { id } });
+    return NextResponse.json({ message: "Success", post }, { status: 200 });
+  } catch (err) {
+    return NextResponse.json({ message: "Error", err }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
